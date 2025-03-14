@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        {{#each products}}
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{this.thumbnails}}" class="img-fluid" alt="{{this.title}}">
+                <div class="card-body">
+                    <p class="card-text">{{this.title}}</p>
+                    <p class="card-text">{{this.price}}</p>
+                </div>
+            </div>
+        </div>
+            <li>{{this.title}} $ {{this.price}}</li>
+
+        {{/each}}    
+        
+        </ul>
+    </div>
+</div>
