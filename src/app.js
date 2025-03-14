@@ -5,6 +5,7 @@ import __dirname from "./utils.js"
 import productsRouter from './routes/productsRouter.js';
 import cartsRouter from './routes/cartsRouter.js';
 import viewsRouter from './routes/viewsRouter.js';
+import ProductManager from './clases/ProductManager.js';
 
 
 const app = express();
@@ -25,6 +26,28 @@ app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
 
 socketServer.on("connection", socket => {
+    const PM = new ProductManager();
+    const products = PM.getProducts();
+    
+    socket.emit("realtimeproducts", products);
+
+    socket.on("nuevoProducto", data =>{
+        const product = {title:data.title, description:data.description, code:data.code, price:data.price, category:data.category, thumbnails:[data.image]};
+        PM.addProduct(product);
+        const products = PM.getProducts();
+        console.log("se agrego un nuevo producto!")
+        socket.emit("realtimeproducts", products);
+
+    })
+
+    socket.on("eliminarProducto", data =>{
+        PM.deleteProduct(data);
+        const products = PM.getProducts();
+        console.log("se elimino el producto!")
+
+        socket.emit("realtimeproducts", products);
+
+    })
 
 
 })

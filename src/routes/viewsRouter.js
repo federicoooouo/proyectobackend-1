@@ -10,4 +10,8 @@ viewsRouter.get("/", (req, res) => {
     res.render("home", {products: products});
 })
 
+viewsRouter.get("/realtimeproducts", (req, res) => {
+    res.render("realtimeproducts");
+})
+
 export default viewsRouter;
