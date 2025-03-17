@@ -4,19 +4,25 @@ import ProductManager from "../clases/ProductManager.js";
 const productsRouter = Router();
 const PM = new ProductManager();
 
-productsRouter.get("/", (req, res) => {
-    let products = PM.getProducts();
-    
-    res.send(products)
+productsRouter.get("/", async (req, res) => {
+    try{
+        let products = await PM.getProducts();
+        res.send(products)
+    }
+    catch(error){
+        console.log("Error al obtener los  productos");
+        
+    }
 })
 
-productsRouter.get("/:pid", (req, res) => {
+productsRouter.get("/:pid", async (req, res) => {
     let pid = req.params.pid;
-    let product = PM.getProductById(pid);
+    let product =  await PM.getProductById(pid);
+    
     res.send(product)
 })
 
-productsRouter.post("/", (req, res) => {
+productsRouter.post("/", async (req, res) => {
     const {title, description, code, price, status, category, thumbnails} = req.body;
 
     if(!title){
@@ -45,11 +51,11 @@ productsRouter.post("/", (req, res) => {
     }
 
     let product = {title, description, code, price, status, category, thumbnails};
-    PM.addProduct(product);
+    await PM.addProduct(product);
     res.send({"estado": "OK", "mensaje": "producto agregado correctamente"})
     
 })
-productsRouter.put("/:pid", (req, res) => {
+productsRouter.put("/:pid", async (req, res) => {
     const pid = req.params.pid;
     const {title, description, code, price, status, category, thumbnails} = req.body;
 
@@ -79,14 +85,14 @@ productsRouter.put("/:pid", (req, res) => {
     }
 
     let product = {title, description, code, price, status, category, thumbnails};
-    PM.editProduct(pid, product);
+    await PM.editProduct(pid, product);
     res.send({"estado": "OK", "mensaje": "El producto se actualizo correctamente"})
     
 })
 
-productsRouter.delete("/:pid", (req, res) => {
+productsRouter.delete("/:pid", async (req, res) => {
     const pid = req.params.pid;
-    PM.deleteProduct(pid);
+    await PM.deleteProduct(pid);
     res.send({"estado": "OK", "mensaje": "El producto se elimino correctamente"})
     
 })

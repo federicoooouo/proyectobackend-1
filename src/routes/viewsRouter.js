@@ -3,9 +3,8 @@ import ProductManager from "../clases/ProductManager.js";
 
 const viewsRouter = Router();
 const PM = new ProductManager();
-viewsRouter.get("/", (req, res) => {
-    let products = PM.getProducts();
-
+viewsRouter.get("/", async  (req, res) => {
+    let products =  await PM.getProducts();
 
     res.render("home", {products: products});
 })

@@ -54,8 +54,8 @@ const limpiarSelectEliminarProducto = () => {
 const agregarItemEliminarProducto = (item) => {
     const productId = document.getElementById("product_id");
     let option = document.createElement("option");
-    option.value = item.id;
-    option.innerHTML = "Producto #" + item.id;
+    option.value = item._id;
+    option.innerHTML = "Producto: " + item.title;
     productId.appendChild(option);
 
 }
