@@ -26,4 +26,10 @@ cartsRouter.post("/:cid/product/:pid", async (req, res) => {
     await CM.addCartProduct(cid, pid);
     res.send({"estado": "OK", "mensaje": "Se agrego el producto al carrito"});
 })
+cartsRouter.delete("/:cid/product/:pid", async (req, res) => {
+    const cid = req.params.cid;
+    const pid = req.params.pid;
+    await CM.deleteProductFromCart(cid, pid);
+    res.send({"estado": "OK", "mensaje": "Se elimino el producto del carrito"});
+})
 export default cartsRouter

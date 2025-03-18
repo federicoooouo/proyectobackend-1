@@ -1,14 +1,13 @@
-import fs from "fs"
 import { cartModel } from "../models/cart.model.js";
 
 class CartManager{
     constructor(){
-       /* this.carts = [],
+    /* this.carts = [],
         this.file = "carrito.json",
         this.creatFile()*/
     }
 
-   /* creatFile(){
+/* creatFile(){
         if(!fs.existsSync(this.file))
             fs.writeFileSync(this.file, JSON.stringify(this.carts))
         }*/
@@ -26,7 +25,7 @@ class CartManager{
     async getCarts(){
         /*this.carts = JSON.parse(fs.readFileSync(this.file, "utf-8"));
         return this.carts;*/
-        return await cartModel.find().lean();
+        return await cartModel.find().lean().populate("products.product");
     }
     async getCartById(id){
         return await cartModel.find({_id:id}).lean();
@@ -62,7 +61,7 @@ class CartManager{
             if(product){
                 product.quantity += 1;
             } else {
-                let product = {product:pid, quantity:1};
+                product = {product:pid, quantity:1};
                 cart.products.push(product);
             }
         await cartModel.updateOne({_id:cid}, {products: cart.products});
@@ -70,6 +69,18 @@ class CartManager{
     /*saveCarts(){
         fs.writeFileSync(this.file, JSON.stringify(this.carts));
     }  */  
+        async deleteProductFromCart(cid, pid) {
+            let cart = await cartModel.findOne({_id:cid}).lean();
+            let products = cart.products.filter(item => item._id != pid);
+    
+        /*   if(products){
+                product.quantity += 1;
+            } else {
+                let product = {product:pid, quantity:1};
+                cart.products.push(product);
+            }*/
+        await cartModel.updateOne({_id:cid}, {products:products});
+        }
         }
         
     export default CartManager

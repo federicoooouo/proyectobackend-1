@@ -9,7 +9,11 @@ const productsSchema = new mongoose.Schema({
     price:String,
     status:Boolean,
     category:String,
-    thumbnails:Array
+    thumbnails:Array,
+    carts:{
+        type:Array,
+        default:[]
+    }
 
 });
 

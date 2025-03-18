@@ -41,8 +41,8 @@ async getProducts(limit, page, query, sort){
         
         }
         result = {status:"success", payload:result.docs, totalPages:result.totalPages, prevPage:result.prevPage, nextPage:result.nextPage, page:result.page,
-            hasPrevPage:result.hastPrevPage, hasNextPage:result.hastNextPage, prevLink:(result.hasPrevPage ? "/?page=" +(result.page -1) :null),
-            nextLink:(result.hasNextLink ? "/?page=" + (result.page+1) : null)};
+            hasPrevPage:result.hasPrevPage, hasNextPage:result.hasNextPage, prevLink:(result.hasPrevPage ? "/?page=" +(result.page -1) :null),
+            nextLink:(result.hasNextPage ? "/?limit=" + limit + "&page=" + (result.page+1) : null)};
 
             return result;
     } catch(error){
