@@ -5,7 +5,7 @@ socket.on("realtimeproducts", data => {
 
     let contenidoHTML= "";
 
-    data.forEach(item => {
+    data.payload.forEach(item => {
         contenidoHTML += `            <div class="col-md-3">
                 <div class="card text-center fw-light">
                     <img src="${item.thumbnails[0]}" class="img-fluid" alt="${item.title}">

@@ -1,20 +1,19 @@
-import fs from 'fs';
 import { productsModel } from '../models/products.model.js';
 
 
 class ProductManager{
-    constructor(){
+/*  constructor(){
         this.products = []
        // this.file = "productos.json",
         //this.creatFile()
-    }
+    } */
 
 /*    creatFile(){
         if(!fs.existsSync(this.file))
             fs.writeFileSync(this.file, JSON.stringify(this.products))
     }*/
 
- /*   getID(){
+/*   getID(){
         this.getProducts();
         let max = 0;
         this.products.forEach(item => {
@@ -24,10 +23,35 @@ class ProductManager{
         })
         return max + 1;
     }*/
-async getProducts(){
-        //this.products = JSON.parse(fs.readFileSync(this.file, "utf-8"));
-            //this.products =  await productsModel.find();
-        return await productsModel.find().lean();
+async getProducts(limit, page, query, sort){
+    try {
+
+        limit = limit ? limit : 10;
+        page = page >=1 ? page : 1;
+        query = query ? query : "";
+        sort = sort ? sort : "asc";
+        let result;
+        
+        if(query){
+            result = await productsModel.paginate({category:query}, {limit:limit ,page:page, sort:sort, lean:true});
+    
+        }else{
+            result = await productsModel.paginate({}, {limit:limit ,page:page, sort:sort, lean:true});
+    
+        
+        }
+        result = {status:"success", payload:result.docs, totalPages:result.totalPages, prevPage:result.prevPage, nextPage:result.nextPage, page:result.page,
+            hasPrevPage:result.hastPrevPage, hasNextPage:result.hastNextPage, prevLink:(result.hasPrevPage ? "/?page=" +(result.page -1) :null),
+            nextLink:(result.hasNextLink ? "/?page=" + (result.page+1) : null)};
+
+            return result;
+    } catch(error){
+        return {status:"error", payload:""}
+
+    }
+
+    //this.products = JSON.parse(fs.readFileSync(this.file, "utf-8"));
+        //this.products =  await productsModel.find();
     }
     async getProductById(id){
         //this.getProducts();
