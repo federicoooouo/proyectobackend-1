@@ -11,7 +11,7 @@ cartsRouter.get("/", async (req,res) => {
 })
 
 cartsRouter.post("/", async (req, res) => {
-   await CM.createCart();
+await CM.createCart();
     res.send({"estado": "OK", "mensaje": "se creo el carrito correctamente"});
 })
 
