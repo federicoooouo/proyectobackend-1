@@ -26,27 +26,27 @@ productsRouter.post("/", async (req, res) => {
     const {title, description, code, price, status, category, thumbnails} = req.body;
 
     if(!title){
-        res.status(404).send({"ERROR": "OK", "mensaje": "Falta el campo title, esta vacio"});
+        res.status(400).send({"ERROR": "OK", "mensaje": "Falta el campo title, esta vacio"});
         return false
     }
     if(!description){
-        res.status(404).send({"ERROR": "OK", "mensaje": "Falta el campo description, esta vacio"});
+        res.status(400).send({"ERROR": "OK", "mensaje": "Falta el campo description, esta vacio"});
         return false
     }
     if(!code){
-        res.status(404).send({"ERROR": "OK", "mensaje": "Falta el campo code, esta vacio"});
+        res.status(400).send({"ERROR": "OK", "mensaje": "Falta el campo code, esta vacio"});
         return false
     }
     if(!price){
-        res.status(404).send({"ERROR": "OK", "mensaje": "Falta el campo price, esta vacio"});
+        res.status(400).send({"ERROR": "OK", "mensaje": "Falta el campo price, esta vacio"});
         return false
     }
     if(!status){
-        res.status(404).send({"ERROR": "OK", "mensaje": "Falta el campo status, esta vacio"});
+        res.status(400).send({"ERROR": "OK", "mensaje": "Falta el campo status, esta vacio"});
         return false
     }
     if(!category){
-        res.status(404).send({"ERROR": "OK", "mensaje": "Falta el campo category, esta vacio"});
+        res.status(400).send({"ERROR": "OK", "mensaje": "Falta el campo category, esta vacio"});
         return false
     }
 
@@ -60,15 +60,15 @@ productsRouter.put("/:pid", async (req, res) => {
     const {title, description, code, price, status, category, thumbnails} = req.body;
 
     if(!title){
-        res.status(404).send({"ERROR": "OK", "mensaje": "Falta el campo title, esta vacio"});
+        res.status(400).send({"ERROR": "OK", "mensaje": "Falta el campo title, esta vacio"});
         return false
     }
     if(!description){
-        res.status(404).send({"ERROR": "OK", "mensaje": "Falta el campo description, esta vacio"});
+        res.status(400).send({"ERROR": "OK", "mensaje": "Falta el campo description, esta vacio"});
         return false
     }
     if(!code){
-        res.status(404).send({"ERROR": "OK", "mensaje": "Falta el campo code, esta vacio"});
+        res.status(400).send({"ERROR": "OK", "mensaje": "Falta el campo code, esta vacio"});
         return false
     }
     if(!price){
@@ -76,11 +76,11 @@ productsRouter.put("/:pid", async (req, res) => {
         return false
     }
     if(!status){
-        res.status(404).send({"ERROR": "OK", "mensaje": "Falta el campo status, esta vacio"});
+        res.status(400).send({"ERROR": "OK", "mensaje": "Falta el campo status, esta vacio"});
         return false
     }
     if(!category){
-        res.status(404).send({"ERROR": "OK", "mensaje": "Falta el campo category, esta vacio"});
+        res.status(400).send({"ERROR": "OK", "mensaje": "Falta el campo category, esta vacio"});
         return false
     }
 
